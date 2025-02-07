@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Autenticando...</title>
+</head>
+<body>
+    <script>
+        // Função para obter os parâmetros da URL
+        function getQueryParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        // Parâmetros de login
+        const username = getQueryParam('login-user_name');
+        const password = getQueryParam('login-password');
+
+        // Verifica se os parâmetros existem
+        if (username && password) {
+            // Cria um formulário invisível para enviar os dados
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://wilivro.shinyapps.io/ShinyDemo/';
+
+            // Campos de formulário
+            const usernameInput = document.createElement('input');
+            usernameInput.type = 'hidden';
+            usernameInput.name = 'login-user_name';
+            usernameInput.value = username;
+
+            const passwordInput = document.createElement('input');
+            passwordInput.type = 'hidden';
+            passwordInput.name = 'login-password';
+            passwordInput.value = password;
+
+            // Adiciona os campos ao formulário
+            form.appendChild(usernameInput);
+            form.appendChild(passwordInput);
+
+            // Adiciona o formulário ao corpo da página e o submete
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            document.body.innerHTML = 'Erro: Parâmetros de login ausentes.';
+        }
+    </script>
+</body>
+</html>
